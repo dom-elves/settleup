@@ -8,5 +8,5 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function() {
-    dd('this should not work');
+    dd('test commit or whatever');
 });
