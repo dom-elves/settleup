@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->json('user_ids');
+            $table->float('kitty', 2);
             $table->timestamps();
         });
     }

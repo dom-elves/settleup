@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('debts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('group_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            // figure out a way to create a 'paid_buy' column that actually makes sense
             $table->timestamps();
         });
     }
