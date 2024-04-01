@@ -18,7 +18,7 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'users' => [],
+            'name' => fake()->word(),
             'kitty' => 99.99,
         ];
     }
