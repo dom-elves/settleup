@@ -17,6 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker::create();
 
+        User::factory()->create([
+            'email' => 'dom_elves@hotmail.co.uk',
+            'password' => 'password',
+        ]);
+
         for ($i = 0; $i < 10; $i++) {
             User::factory()->create([
                 'first_name' => $faker->unique()->firstName,
