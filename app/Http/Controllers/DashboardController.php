@@ -12,6 +12,9 @@ class DashboardController extends Controller
     {  
         $user = Auth::user();
         $groups = Group::whereJsonContains('user_ids', $user->id)->get();
+
+        // add "not logged in/no permission/something or other"
+
         return view('dashboard', ['groups' => $groups]);
     }
 }
