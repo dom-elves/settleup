@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Group;
+use App\Models\Debt;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
@@ -32,13 +33,22 @@ class DatabaseSeeder extends Seeder
         }
         
         for ($i = 0; $i < 10; $i++) {
-            Group::factory()->create([
+            $group = Group::factory()->create([
                 'user_ids' => json_encode(User::pluck('id')
                     ->shuffle()
                     ->take(random_int(2,10))
                     ->toArray()),
             ]);
+
+            $decimal = round(100 / random_int(100,1000), 2);
+
+            Debt::factory()->create([
+                'group_id' => $group->id,
+                'amount' => random_int(1, 999) + $decimal,
+            ]);
         }
+
+
 
         
     }
