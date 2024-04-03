@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('group_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->float('amount', 2);
-            // figure out a way to create a 'paid_buy' column that actually makes sense
+            $table->json('involved_users');
             $table->json('paid_by');
             $table->timestamps();
         });

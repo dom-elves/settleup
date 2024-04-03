@@ -17,6 +17,7 @@ class DebtFactory extends Factory
     public function definition(): array
     {
         return [
+            'involved_users' => json_encode([]),
             'paid_by' => json_encode([]),
         ];
     }
