@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('login');
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
