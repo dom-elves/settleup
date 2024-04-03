@@ -12,7 +12,7 @@ class DashboardController extends Controller
     {  
         $user = Auth::user();
 
-        // add "not logged in/no permission/something or other"
+        // todo: add "not logged in/no permission/something or other"
         // temp so i don't have to keep clicking back
         if (!$user) {
             return view('welcome');
