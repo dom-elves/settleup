@@ -74,6 +74,8 @@ class DatabaseSeeder extends Seeder
 
     public function createDebt($user_ids, $group)
     {
+        $faker = Faker::create();
+
         $user_ids_array = $user_ids->toArray();
 
         // generate a random decimal, not perfect
@@ -94,6 +96,7 @@ class DatabaseSeeder extends Seeder
             // add the randomly selected involved usersn then paid users from that
             'involved_users' => json_encode($involved_users_array),
             'paid_by' => json_encode($paid_users_array),
+            'name' => $faker->word(),
         ]);
     }
 }

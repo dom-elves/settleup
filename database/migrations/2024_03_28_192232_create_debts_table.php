@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('group_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->float('amount', 2);
+            $table->string('name');
             $table->json('involved_users');
             $table->json('paid_by');
             $table->timestamps();
