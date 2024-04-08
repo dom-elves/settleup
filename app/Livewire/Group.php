@@ -20,6 +20,6 @@ class UserGroup extends Component
     public function render()
     {
         
-        return view('livewire.groups.user_group');
+        return view('livewire.groups.group');
     }
 }

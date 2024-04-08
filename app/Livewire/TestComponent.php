@@ -11,6 +11,6 @@ class TestComponent extends Component
     {
         $users = User::all();
        
-        return view('livewire.test-component', ['users' => $users]);
+        return view('livewire.test_component', ['users' => $users]);
     }
 }
