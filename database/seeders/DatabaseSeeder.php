@@ -42,6 +42,8 @@ class DatabaseSeeder extends Seeder
 
     public function createGroups()
     {
+        $faker = Faker::create();
+
         $random = random_int(0, 10);
 
         for ($i = 0; $i < 10; $i++) {  
@@ -66,6 +68,8 @@ class DatabaseSeeder extends Seeder
             // column is json so ids array needs to be encoded
             $group = Group::factory()->create([
                 'user_ids' => json_encode($user_ids_array),
+                // not perfect in terms of being unique but will do for now 
+                'name' => $faker->word() . "_" . $faker->word(),
             ]);
 
             $this->createDebt($user_ids, $group); 
