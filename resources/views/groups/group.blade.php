@@ -1,9 +1,11 @@
 <h1>group summary</h1>
-{{ $group->users }}
+<h2>users</h2>
+@foreach ($group->users as $user)
+<p>{{ $user->first_name }} {{ $user->last_name}}</p>
+@endforeach
 </br>
 </br>
-{{ $debts }}
 
-horizontal display of each debt,
-click as a dropdown to display full details (paid, not paid etc)
-overall +/- kitty at the top by each person's name (what they owe/are owed)
+@foreach ($debts as $debt)
+<livewire:debt-component :debt="$debt" />
+@endforeach

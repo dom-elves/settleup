@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserGroup extends Component
 {
-    // public $user;
     public $group;
 
     // public function mount()
@@ -19,7 +18,6 @@ class UserGroup extends Component
 
     public function render()
     {
-        
         return view('livewire.groups.user_group');
     }
 }

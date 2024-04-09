@@ -102,5 +102,7 @@ class DatabaseSeeder extends Seeder
             'paid_by' => json_encode($paid_users_array),
             'name' => $faker->word(),
         ]);
+
+        dump('added debt for group ' . $group->id);
     }
 }
