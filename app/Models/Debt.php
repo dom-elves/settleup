@@ -18,6 +18,7 @@ class Debt extends Model
         return $this->belongsTo(Group::class);
     }
 
+    // think of a better naming convention for these
     public function involved_users_user_ids(): HasMany
     {
         $users = $this->HasMany(User::class);
@@ -33,6 +34,4 @@ class Debt extends Model
 
         return $users;
     }
-
-    // todo: add paid_by, involved_users, etc
 }

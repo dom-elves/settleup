@@ -1,6 +1,11 @@
 <div>
-{{ $debt->involved_users_user_ids }}<br>
-{{ $debt->paid_by_user_ids }}
+    <p>this is the top of the debt component</p>
+
+    @foreach ($involved_users as $involved_user)
+    <p class="{{in_array($involved_user->id, $paid_by) ? 'text-green-600' : 'text-red-600' }}">
+        {{ $involved_user->first_name}} {{$involved_user->last_name}}
+    </p>
+    @endforeach
 </div>
 
  <!-- horizontal display of each debt,
