@@ -1,5 +1,5 @@
 <div>
-    <p>this is the top of the debt component</p>
+    <p class="text-green-400">this is the top of the debt component</p>
 
     @foreach ($involved_users as $involved_user)
     <p class="{{in_array($involved_user->id, $paid_by) ? 'text-green-600' : 'text-red-600' }}">
