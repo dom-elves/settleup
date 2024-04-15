@@ -22,6 +22,7 @@ class DebtComponent extends Component
       
 
         return view('livewire.debts.debt-component', [
+            // for comparison logic
             'involved_users' => $this->involved_users, 
             'paid_users' => $this->paid_by,
         ]);
