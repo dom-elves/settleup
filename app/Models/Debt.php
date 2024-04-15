@@ -13,6 +13,18 @@ class Debt extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['group_id', 'name', 'amount', 'involved_users', 'paid_by'];
+
+    // paid_by defaults as an empty array in a string since it's json
+    protected $attributes = [
+        'paid_by' => '[]',
+    ];
+
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);

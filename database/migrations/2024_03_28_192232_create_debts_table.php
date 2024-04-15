@@ -17,7 +17,7 @@ return new class extends Migration
             $table->float('amount', 2);
             $table->string('name');
             $table->json('involved_users');
-            $table->json('paid_by');
+            $table->json('paid_by')->nullable();
             $table->timestamps();
         });
     }
