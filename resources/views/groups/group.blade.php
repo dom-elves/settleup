@@ -8,6 +8,8 @@
     </br>
 
     @foreach ($debts as $debt)
-    <livewire:debt-component :debt="$debt" />
+    <livewire:view-debt-component :debt="$debt" />
     @endforeach
+
+    <livewire:add-debt-component  :users="$group->users"/>
 </x-app-layout>
