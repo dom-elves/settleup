@@ -5,10 +5,11 @@
         <label for="debt-amount">Amount</label>
         <input id="debt-amount" type="text" wire:model="amount">
         <div class="flex flex-col">
+
         @foreach ($users as $user)
             <div class="flex flex-row">
                 <label for="user-{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</label>
-                <input id="user-{{$user->id}}" type="checkbox" value="  {{$user->id}}" wire:model="involved_users" />
+                <input id="user-{{$user->id}}" type="checkbox" value="{{$user->id}}" wire:model="involved_users" />
             </div>
         @endforeach
         </div>
