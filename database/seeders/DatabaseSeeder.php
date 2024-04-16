@@ -92,7 +92,10 @@ class DatabaseSeeder extends Seeder
 
         // don't need to make an array separately since it's the end of the chain
         $paid_users_array = $involved_users->take(random_int(1, count($involved_users_array)))->toArray();
-
+        
+        // pick a random user to be the one that created the debt
+        $created_by_user_id = $paid_users_array[array_rand($paid_users_array)];
+        
         Debt::factory()->create([
             'group_id' => $group->id,
             // add the decimal to a random integer to make it look like money
@@ -100,9 +103,14 @@ class DatabaseSeeder extends Seeder
             // add the randomly selected involved usersn then paid users from that
             'involved_users' => json_encode($involved_users_array),
             'paid_by' => json_encode($paid_users_array),
+            'created_by_user_id' => $created_by_user_id,
             'name' => $faker->word(),
         ]);
 
-        dump('added debt for group ' . $group->id);
+        dump('added debt for group ' . $group->id
+         . ' created by user ' . $created_by_user_id 
+         . ' paid by users ' . json_encode($paid_users_array) 
+         . ' involved users: ' . json_encode($involved_users_array)
+        );
     }
 }

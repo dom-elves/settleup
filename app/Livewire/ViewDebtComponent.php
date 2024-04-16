@@ -7,10 +7,13 @@ use App\Models\Debt;
 
 class ViewDebtComponent extends Component
 {
+    // from fe
     public $debt;
+
+    // mount
     public $paid_by = [];
     public $involved_users = [];
-
+    
     public function mount()
     {
         $this->involved_users = $this->debt->involved_users_user_ids;

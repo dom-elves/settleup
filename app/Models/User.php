@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Group;
 
 class User extends Authenticatable
@@ -46,13 +47,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function created_debts(): HasMany
+    {
+        $created_debts = $this->hasMany(Debt::class);
+        $created_debts->setQuery(Debt::where('created_by_user_id', $this->id)->getQuery(), 'created_by_user_id');
+
+        return $created_debts;
+    }
+
     // public function groups()
     // {
     //     return $this->belongsToMany(Group::class);
-    // }
-
-    // public function debt(): HasMany
-    // {
-    //     return $this->hasMany(Debt::class);
     // }
 }

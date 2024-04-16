@@ -46,4 +46,9 @@ class Debt extends Model
 
         return $users;
     }
+
+    public function created_by_user_id(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
