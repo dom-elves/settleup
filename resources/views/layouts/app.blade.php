@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://kit.fontawesome.com/35f766afc2.js" crossorigin="anonymous"></script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -28,7 +29,7 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="w-50 sm:w-100">
                 {{ $slot }}
             </main>
         </div>

@@ -28,4 +28,15 @@ class ViewDebtComponent extends Component
             'paid_users' => $this->paid_by,
         ]);
     }
+
+    // maybe move this
+    // but also research if livewire should be treated 'differently' to standard laravel
+    // e.g. not have all operations in a single admin controller, have them more spread out
+    // feels messy though
+    public function delete()
+    {
+        Debt::where('id', $this->debt->id)->delete();
+
+        // todo: add a warning
+    }
 }
