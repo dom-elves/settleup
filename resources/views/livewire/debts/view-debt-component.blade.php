@@ -1,5 +1,13 @@
 <div class="mb-2" style="border: 1px solid purple">
 
+    <div>
+        @if (session()->has('message'))
+            <div>
+                <strong class="text-red-600">{{ session('message') }}</strong>
+            </div>
+        @endif
+    </div>
+
     <!-- render this only if the creater is the current user -->
     <div style="position:relative;float:right;" class="p-1">
         <button wire:click="delete">X</button>

@@ -30,6 +30,9 @@ class AddDebtComponent extends Component
             'created_by_user_id' => Auth::user()->id,
         ])->save();
 
+        session()->flash('message', 'Debt added successfully');
+
+        return redirect(request()->header('Referer'));
        // add error handling, flash to session etc
        // users also need to have to 'accept' debts
 

@@ -38,5 +38,9 @@ class ViewDebtComponent extends Component
         Debt::where('id', $this->debt->id)->delete();
 
         // todo: add a warning
+
+        session()->flash('message', 'Debt removed successfully');
+
+        return redirect(request()->header('Referer'));
     }
 }

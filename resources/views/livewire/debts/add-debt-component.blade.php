@@ -1,4 +1,13 @@
-<div class="p-3" style="border: 2px solid blue">
+<div class="p-3 mb-2" style="border: 2px solid blue">
+
+    <div>
+        @if (session()->has('message'))
+            <div>
+                <strong class="text-green-600">{{ session('message') }}</strong>
+            </div>
+        @endif
+    </div>
+ 
     <form wire:submit="save">
         <label for="debt-name">Name</label>
         <input id="debt-name" type="text" wire:model="name">
