@@ -33,7 +33,7 @@ class AddDebtComponent extends Component
        // add error handling, flash to session etc
        // users also need to have to 'accept' debts
 
-       // probably easier to have the mindset that you need to check yourself off as 'paid' rahter than get confusing with 
+       // probably easier to have the mindset that you need to check yourself off as 'paid' rather than get confusing with 
        // taking created_by_user_id out of array
     }
 

@@ -11,8 +11,7 @@ class GroupController extends Controller
     public function index(Request $request, string $group_name)
     {      
         $group = Group::where('name', $group_name)->first();
-        $debts = Debt::where('group_id', $group->id)->get();
-       
-        return view('groups.group', ['group' => $group, 'debts' => $debts]);
+
+        return view('groups.group', ['group' => $group, 'debts' => $group->debts]);
     }
 }
