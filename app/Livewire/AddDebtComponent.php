@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Illuminate\Http\Request;
 use App\Models\Debt;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,26 +17,20 @@ class AddDebtComponent extends Component
     public $amount;
     public $involved_users = [];
 
+    // goes to DebtComponent
     public function save()
     {
         $this->validate();
         
-        Debt::create([
+        $data = [
             'group_id' => $this->group->id,
             'name' => $this->name,
             'amount' => $this->amount,
             'involved_users' => json_encode($this->involved_users),
             'created_by_user_id' => Auth::user()->id,
-        ])->save();
+        ];
 
-        session()->flash('message', 'Debt added successfully');
-
-        return redirect(request()->header('Referer'));
-       // add error handling, flash to session etc
-       // users also need to have to 'accept' debts
-
-       // probably easier to have the mindset that you need to check yourself off as 'paid' rather than get confusing with 
-       // taking created_by_user_id out of array
+        $this->dispatch('addDebtEvent', data: $data);
     }
 
     public function rules()

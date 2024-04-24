@@ -1,5 +1,4 @@
-<div class="p-3 mb-2" style="border: 2px solid blue">
-
+<div class="p-3 mb-2" style="border: 1px solid blue">
     <div>
         @if (session()->has('message'))
             <div>

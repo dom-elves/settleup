@@ -1,5 +1,4 @@
 <div class="mb-2" style="border: 1px solid purple">
-
     <div>
         @if (session()->has('message'))
             <div>
@@ -10,7 +9,9 @@
 
     <!-- render this only if the creater is the current user -->
     <div style="position:relative;float:right;" class="p-1">
-        <button wire:click="delete">X</button>
+        <button 
+            wire:click="delete({{$debt}})"
+        >X</button>
     </div>
 
     <div class="flex flex-col items-center">

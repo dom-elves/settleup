@@ -29,18 +29,9 @@ class ViewDebtComponent extends Component
         ]);
     }
 
-    // maybe move this
-    // but also research if livewire should be treated 'differently' to standard laravel
-    // e.g. not have all operations in a single admin controller, have them more spread out
-    // feels messy though
-    public function delete()
+    // goes to DebtComponent
+    public function delete($debt)
     {
-        Debt::where('id', $this->debt->id)->delete();
-
-        // todo: add a warning
-
-        session()->flash('message', 'Debt removed successfully');
-
-        return redirect(request()->header('Referer'));
+        $this->dispatch('deleteDebtEvent', debt: $debt);
     }
 }

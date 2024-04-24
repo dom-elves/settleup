@@ -7,12 +7,6 @@
         @endforeach
         </br>
         </br>
-        
-        <div class="p-2"style="border:2px solid green">
-            <livewire:add-debt-component  :users="$group->users" :group="$group"/>
-            @foreach ($debts as $debt)
-                <livewire:view-debt-component :debt="$debt" />
-            @endforeach
-        </div>
+        <livewire:debt-component :users="$group->users" :group="$group" :debts="$debts"/>
     </div>
 </x-app-layout>
