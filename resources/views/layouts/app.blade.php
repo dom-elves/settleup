@@ -29,6 +29,7 @@
             @endif
 
             <!-- Page Content -->
+            <!-- for some reason this mq doesn't actually work -->
             <main class="w-50 sm:w-100">
                 {{ $slot }}
             </main>

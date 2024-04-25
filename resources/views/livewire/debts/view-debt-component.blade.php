@@ -14,10 +14,18 @@
         >X</button>
     </div>
 
+
     <div class="flex flex-col items-center">
         <div class="flex flex-col">
-            <p>{{ $debt->name }}</p>
-            <p>{{ $debt->amount }}</p>
+            <strong>{{ $debt->name }}</strong>
+            <div class="flex flex-row">
+                <p>total:</p>
+                <p>{{ $debt->amount }}</p>
+            </div>
+            <div class="flex flex-row">
+                <p>split:</p>
+                <p>{{ $debt->amount / count(json_decode($debt->involved_users))}}</p>
+            </div>
         </div>
         
         <div class="flex flex-row justify-between">
