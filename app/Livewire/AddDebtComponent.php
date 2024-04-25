@@ -33,7 +33,7 @@ class AddDebtComponent extends Component
         $this->dispatch('addDebtEvent', data: $data);
     }
 
-    public function rules()
+    protected function rules()
     {
         return [
             // add group_id for when debts can be made via a group/homescreen 
