@@ -1,8 +1,8 @@
 <div class="mb-2" style="border: 1px solid purple">
     <div>
-        @if (session()->has('message'))
+        @if (session()->has('remove'))
             <div>
-                <strong class="text-red-600">{{ session('message') }}</strong>
+                <strong class="text-red-600">{{ session('remove') }}</strong>
             </div>
         @endif
     </div>
@@ -13,7 +13,6 @@
             wire:click="delete({{$debt}})"
         >X</button>
     </div>
-
 
     <div class="flex flex-col items-center">
         <div class="flex flex-col">

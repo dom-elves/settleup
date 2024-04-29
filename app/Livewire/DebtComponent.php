@@ -14,6 +14,8 @@ class DebtComponent extends Component
     public $group;
     public $debts;
 
+    public $message = '';
+
     protected $listeners = [
         'deleteDebtEvent' => 'delete',
         'addDebtEvent' => 'save'
@@ -21,6 +23,8 @@ class DebtComponent extends Component
 
     public function save($data)
     {
+        $this->message = 'Debt added successfully';
+
         Debt::create([
             'group_id' => $data['group_id'],
             'name' => $data['name'],
@@ -29,10 +33,11 @@ class DebtComponent extends Component
             'created_by_user_id' => Auth::user()->id,
         ])->save();
 
-        session()->flash('message', 'Debt added successfully');
+    
+        session()->flash('success', $this->message);
 
         return redirect(request()->header('Referer'));
-       // add error handling, flash to session etc
+       // add error handling,
        // users also need to have to 'accept' debts
 
        // probably easier to have the mindset that you need to check yourself off as 'paid' rather than get confusing with 
@@ -43,12 +48,12 @@ class DebtComponent extends Component
 
     public function delete($debt)
     {
+        $this->message = 'Debt removed successfully';
+
         Debt::where('id', $debt['id'])->delete();
 
         // todo: add a warning
-
-        session()->flash('message', 'Debt removed successfully');
-
+       
         return redirect(request()->header('Referer'));
     }
 

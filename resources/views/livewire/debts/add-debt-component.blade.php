@@ -1,8 +1,8 @@
 <div class="p-3 mb-2" style="border: 1px solid blue">
     <div>
-        @if (session()->has('message'))
+        @if (session()->has('success'))
             <div>
-                <strong class="text-green-600">{{ session('message') }}</strong>
+                <strong class="text-green-600">{{ session('success') }}</strong>
             </div>
         @endif
     </div>
