@@ -7,6 +7,10 @@
         @endforeach
         </br>
         </br>
-        <livewire:debt-component :users="$group->users" :group="$group" :debts="$debts"/>
+        <section id="debt-section" style="background:white">
+            <div>
+                <livewire:debt-component :users="$group->users" :group="$group" :debts="$debts"/>
+            </div>
+        </section>
     </div>
 </x-app-layout>

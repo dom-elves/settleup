@@ -7,12 +7,14 @@
         @endif
     </div>
 
-    <!-- render this only if the creater is the current user -->
-    <div style="position:relative;float:right;" class="p-1">
-        <button 
-            wire:click="delete({{$debt}})"
-        >X</button>
-    </div>
+    <!-- maybe replace this with a popover -->
+    @if (auth()->user()->id === $debt->created_by_user_id)
+        <div style="position:relative;float:right;" class="p-1">
+            <button 
+                wire:click="delete({{$debt}})"
+            >remove x</button>
+        </div>
+    @endif
 
     <div class="flex flex-col items-center">
         <div class="flex flex-col">
