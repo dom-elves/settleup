@@ -7,12 +7,15 @@
         @endif
     </div>
 
-    <!-- maybe replace this with a popover -->
     @if (auth()->user()->id === $debt->created_by_user_id)
         <div style="position:relative;float:right;" class="p-1">
-            <button 
-                wire:click="delete({{$debt}})"
-            >remove x</button>
+            <button popovertarget="my-popover"> Open Popover </button>
+
+            <div id="my-popover" popover style="background-color:cyan;">
+                <button wire:click="delete({{$debt}})" class="p-2" style="border:2px solid green">remove x</button>
+                <button class="p-2" style="border:2px solid green">edit</button>
+                <button class="p-2" style="border:2px solid green">any other option</button>
+            </div>
         </div>
     @endif
 
@@ -45,11 +48,11 @@
 </div>
 @script
 <script>
-    const chevron = document.getElementById(`chevron-${{!! $debt->id !!}}`);
-    chevron.addEventListener('click',  function() {
-        // yes this is dumb, look into better ways to do this with livewire
-        console.log('hit', {!! $debt->id !!});
-    });
+    // const chevron = document.getElementById(`chevron-${{!! $debt->id !!}}`);
+    // chevron.addEventListener('click',  function() {
+    //     // yes this is dumb, look into better ways to do this with livewire
+    //     console.log('hit', {!! $debt->id !!});
+    // });
 </script>
 @endscript
 
