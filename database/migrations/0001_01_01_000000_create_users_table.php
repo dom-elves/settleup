@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // todo: add/restore all created/updated ats
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');

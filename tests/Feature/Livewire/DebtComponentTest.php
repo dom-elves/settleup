@@ -16,4 +16,6 @@ class DebtComponentTest extends TestCase
         Livewire::test(DebtComponent::class)
             ->assertStatus(200);
     }
+
+    
 }

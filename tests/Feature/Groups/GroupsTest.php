@@ -4,8 +4,9 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\Group;
 
-class ExampleTest extends TestCase
+class GroupsTest extends TestCase
 {
     use RefreshDatabase;
     /**
@@ -13,7 +14,12 @@ class ExampleTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response(): void
     {
-        $response = $this->get('/');
+        $group = Group::factory()->create([
+            'user_ids' => json_encode([1, 2, 3]),
+        ]);
+
+        
+        $response = $this->get('/group/' . $group->name);
 
         $response->assertStatus(200);
     }
