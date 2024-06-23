@@ -1,5 +1,4 @@
-<x-app-layout>
-    <div>
+<div>
         <h1>GROUP SUMMARY</h1>
         <h2>users</h2>
         @foreach ($group->users as $user)
@@ -13,4 +12,3 @@
             </div>
         </section>
     </div>
-</x-app-layout>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    // todo: redo this, make group_users like scheme_members
     /**
      * Run the migrations.
      */

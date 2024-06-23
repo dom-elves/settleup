@@ -31,21 +31,21 @@ class Debt extends Model
     }
 
     // think of a better naming convention for these
-    public function involved_users_user_ids(): HasMany
-    {
-        $users = $this->HasMany(User::class);
-        $users->setQuery(User::whereIn('id', json_decode($this->involved_users))->getQuery(), 'involved_users');
+    // public function involved_users_user_ids(): HasMany
+    // {
+    //     $users = $this->HasMany(User::class);
+    //     $users->setQuery(User::whereIn('id', json_decode($this->involved_users))->getQuery(), 'involved_users');
   
-        return $users;
-    }
+    //     return $users;
+    // }
 
-    public function paid_by_user_ids(): HasMany
-    {
-        $users = $this->HasMany(User::class);
-        $users->setQuery(User::whereIn('id', json_decode($this->paid_by))->getQuery(), 'paid_by');
+    // public function paid_by_user_ids(): HasMany
+    // {
+    //     $users = $this->HasMany(User::class);
+    //     $users->setQuery(User::whereIn('id', json_decode($this->paid_by))->getQuery(), 'paid_by');
 
-        return $users;
-    }
+    //     return $users;
+    // }
 
     public function created_by_user_id(): BelongsTo
     {

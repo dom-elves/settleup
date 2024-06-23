@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Group;
 
 class User extends Authenticatable
@@ -47,16 +48,20 @@ class User extends Authenticatable
         ];
     }
 
-    public function created_debts(): HasMany
-    {
-        $created_debts = $this->hasMany(Debt::class);
-        $created_debts->setQuery(Debt::where('created_by_user_id', $this->id)->getQuery(), 'created_by_user_id');
-
-        return $created_debts;
-    }
-
-    // public function groups()
+    // public function created_debts(): HasMany
     // {
-    //     return $this->belongsToMany(Group::class);
+    //     $created_debts = $this->hasMany(Debt::class);
+    //     $created_debts->setQuery(Debt::where('created_by_user_id', $this->id)->getQuery(), 'created_by_user_id');
+
+    //     return $created_debts;
     // }
+
+    public function groups(): BelongsToMany
+    {
+        $groups = $this->belongsToMany(Group::class);
+        // dd(Group::whereJsonContains('user_ids', 1)->get());
+        $groups->setQuery(Group::whereJsonContains('user_ids', $this->id)->getQuery());
+        // dd($groups);
+        return $groups;
+    }
 }

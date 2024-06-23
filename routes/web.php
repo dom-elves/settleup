@@ -26,6 +26,9 @@ Route::get('debts', [DebtController::class, 'index'])->name('debts');
 
 
 // groups
+Route::get('groups', [GroupController::class, 'index'])->name('groups');
+
+
 Route::get('/group/{name}', [GroupController::class, 'index'])->name('group');
 
 require __DIR__.'/auth.php';

@@ -15,7 +15,7 @@
         </div>
     </div>
     
-    <p class="test">Groups you are a member of:</p>
+    {{-- <p class="test">Groups you are a member of:</p>
     @foreach ($groups as $group)
         <div class="max-w-7xl sm:px-6 lg:px-8 mt-3">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -24,5 +24,5 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
 </x-app-layout>
