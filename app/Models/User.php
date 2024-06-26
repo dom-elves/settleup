@@ -61,7 +61,7 @@ class User extends Authenticatable
         $groups = $this->belongsToMany(Group::class);
         // dd(Group::whereJsonContains('user_ids', 1)->get());
         $groups->setQuery(Group::whereJsonContains('user_ids', $this->id)->getQuery());
-        // dd($groups);
+        
         return $groups;
     }
 }

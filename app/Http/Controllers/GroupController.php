@@ -12,8 +12,8 @@ class GroupController extends Controller
     public function index()
     {
         $groups = Auth::user()->groups();
-        dd($groups->get());
-        return view('groups.groups', ['groups' => $groups]);
+	
+	return view('groups.groups', ['groups' => $groups]);
     }
 
     // public function old(Request $request, string $group_name)
