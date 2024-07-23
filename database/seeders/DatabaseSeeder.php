@@ -5,9 +5,11 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Debt;
+use App\Models\GroupUser;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use Illuminate\Support\Arr;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,8 +19,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->createUsers();
-
-        $this->createGroups();
+	    $this->createGroups();
+		$this->createGroupUsers();
     }
 
     public function createUsers()
@@ -43,36 +45,48 @@ class DatabaseSeeder extends Seeder
     public function createGroups()
     {
         $faker = Faker::create();
-
-        $random = random_int(0, 10);
-
-        for ($i = 0; $i < 10; $i++) {  
-
-            $user_ids = User::pluck('id')
-                ->shuffle()
-                ->take(random_int(2,10));
-                
-            $user_ids_array = $user_ids->toArray();
-
-            // if $random matches and self not already in the ids array, add self
-            if ($random === $i && !in_array(1, $user_ids_array)) {
-
-                $user_ids_array[] = 1;
-                dump('adding self to group ' . $i );
-
-            } elseif (in_array(1, $user_ids_array)) {
-
-                dump('self already in group ' . $i);
-            }
-
-            // column is json so ids array needs to be encoded
+	    
+        for ($i = 0; $i < 10; $i++) {
             $group = Group::factory()->create([
-                'user_ids' => json_encode($user_ids_array),
-                // not perfect in terms of being unique but will do for now 
+                // not perfect in terms of being unique but will do for now
                 'name' => $faker->word() . "_" . $faker->word(),
-            ]);
+            ]);     
+        }
+    }
 
-            $this->createDebt($user_ids, $group); 
+    public function createGroupUsers()
+    {
+		$group_ids = Group::pluck('id')->toArray();
+
+        foreach ($group_ids as $group_id) {
+            
+            // get some random user ids, iterate
+            $random_users = User::pluck('id')->shuffle()->take(random_int(2,10));
+
+            foreach ($random_users as $random_user) {
+
+                if ($random_user === 1) {
+                    dump('adding self to group ' . $group_id);
+                }
+
+                GroupUser::create([
+                  'group_id' => $group_id,
+                  'user_id' => $random_user
+                ]);
+            }  
+        }
+
+        // if i don't exist in any group, add self
+        if (!GroupUser::where('user_id', 1)->exists()) {
+
+            $random_group = Arr::random($group_ids);
+
+            GroupUser::create([
+                'group_id' => $random_group,
+                'user_id' => 1,
+            ]);
+            
+            dump('appending self to group '. $random_group);
         }
     }
 
