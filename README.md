@@ -54,8 +54,8 @@ Note: These subheadings are relevant to the **primary key** of the given table.
 
 
 ## Process (to be fleshed out fully)
-- [x] Install laravel breeze for basic users, auth etc.
-- [x] Install livewire as that will be the frontend.
+- [ ] Install laravel breeze for basic users, auth etc.
+- [ ] Install livewire as that will be the frontend.
 - [ ] Write migrations with correct relationships.
 - [ ] Build a seeder, leveraging factories.
 - [ ] Write tests for operations:
