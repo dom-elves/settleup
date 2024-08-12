@@ -15,7 +15,7 @@ Note: These subheadings are relevant to the **primary key** of the given table.
 
 #### Relationships
 - "users" is handled by laravel breeze out of the box.
-- "users and "group"s will be a MTM relationship, with a junction table of "group users". This will cause two OTM relationships; "user"s & "groups", as well as "groups" & "users". A user can be in many groups, and a group can have many users.
+- "users and "group"s will be a MTM relationship, with a junction table of "group users". This will cause two OTM relationships; "users" & "groups", as well as "groups" & "users". A user can be in many groups, and a group can have many users.
 
 ### Groups
 #### Proprties
@@ -27,6 +27,16 @@ Note: These subheadings are relevant to the **primary key** of the given table.
 - As previously mentioned, "groups" will have a MTM relationship with users, see **users** point 2 for explaination.
 - "groups" will have many "debts", as a "group" will be constantly adding things such as a food bill etc. This is a OTM relationship.
 
+### Group Users
+#### Proprties
+- id
+- user id (OTM between users and group users)
+- group id (OTM between groups and group users)
+- value (this will be a total of what the individual is owed/owes people, calculated by 
+
+#### Relationships
+- Essentially as explained, a user can be in many groups and a group will have at least two users, so there is a need for a group user table.
+  
 ### Debts
 #### Properies
 - id
@@ -44,10 +54,12 @@ Note: These subheadings are relevant to the **primary key** of the given table.
 ### User Debt
 #### Properties
 - id
-- user id (OTM between "users")
+- user id (OTM between "user" and "user debt", can be used to calculate a "users" overall owe/owed total)
+- group user id (OTM between "group user" and "user debt")
 - debt id (OTM between "debts")
-- amount (updated by the user)
-- cleared (boolean value, allows the "created by" user to update individual debts", possibly not a necessary addition)
+- original amount (initial value set by whoever added the "debt")
+- paid amount (updated by the "group user")
+- cleared (boolean value, allows the "created by" user to update individual "debts", possibly not a necessary addition)
 
 #### Relationships
 -
