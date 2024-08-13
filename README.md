@@ -72,8 +72,14 @@ Note: These subheadings are relevant to the **primary key** of the given table.
 - The idea is that a "user debt" will be created for each "user" that is involved in a given "debt". Including the "user" and "debt" ids as relationships is so a "users" overall owe/oweds amounts can be totalled. Initial idea is to provide the most relevant information to the user when they log in, that being how much money they owe/are owed.
 - "original amount" is set by whoever created the "debt" that has spawned the "user debt".
 - "paid amount" is updated by the "user".
-- "cleared" works in the same way it does for a "debt", just on an individual level. The creator of the "debt" will be able to check off individual users. 
+- "cleared" works in the same way it does for a "debt", just on an individual level. The creator of the "debt" will be able to check off individual users.
 
+## Models
+- Models to be created with relationships relative to db relationships. Also include belongsTo relationships for OTM db relationships.
+- Factories to be created with the aim to create a seeder that can simulate data from ~100 users.
+
+## Controllers
+**look into best practices to do this with livewire**
 
 ## Process (to be fleshed out fully)
 - [ ] Install laravel breeze for basic users, auth etc.
@@ -82,6 +88,30 @@ Note: These subheadings are relevant to the **primary key** of the given table.
 - [ ] Build a seeder, leveraging factories. This will be done in two parts.
     - [ ] User & group related. 
     - [ ] Debt related.
-- [ ] Write tests for operations:
-    - [ ] (write a list of all the operations).
+- [ ] Write tests for operations (detailed below)
 - [ ] Build the frontend (need to properly scope this out).
+
+### Operations (incomplete)
+#### User
+- sign up
+- log in
+- reset password (these three are possibly OOTB)
+
+#### Group
+- create group
+- join group
+- remove someone from group they own
+
+#### Debt
+- add a debt for all group members
+- add a debt for some group members
+- clear an entire debt
+- clear a single user from a debt
+- delete a debt
+- split a debt evenly
+- split a debt with custom amounts
+
+#### Unsure where these go, might need to rethink test structure
+- pay some of a debt
+- pay all of a debt
+  
