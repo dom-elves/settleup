@@ -1,66 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Design doc
 
-## About Laravel
+## Database
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Note: These subheadings are relevant to the **primary key** of the given table. 
+### Users
+#### Properties
+- id
+- first name
+- last name
+- email
+- password
+- other OOTB laravel breeze stuff
+- total value
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Summary
+- "users" is handled by laravel breeze out of the box.
+- "users and "groups" will be a MTM relationship, with a junction table of "group users". This will cause two OTM relationships; "users" & "groups", as well as "groups" & "users". A user can be in many groups, and a group can have many users.
+- The total value is a summary of a "group users" values. As a user can be in many groups, therefore creating many group users, the "total value" will just be a sum of what a user owes/is owed overall.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Groups
+#### Proprties
+- id
+- name
+  (this feels like there's almost too barebones, but i think it's enough for an MVP)
+  
+#### Summary
+- As previously mentioned, "groups" will have a MTM relationship with users, see **users** point 2 for explaination.
+- "groups" will have many "debts", as a "group" will be constantly adding things such as a food bill etc. This is a OTM relationship.
+- Maybe in the future groups will have more customisation, like an avatar or some other settings but ofr now, just a name is enough. 
 
-## Learning Laravel
+### Group Users
+#### Proprties
+- id
+- user id (OTM between users and group users)
+- group id (OTM between groups and group users)
+- value
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### Summary
+- Essentially as explained, a user can be in many groups and a group will have at least two users, so there is a need for a group user table.
+- The value will be a total of what a group user owes/is owed across all "user debts".
+  
+### Debts
+#### Properies
+- id
+- group id
+- name 
+- created by 
+- total amount 
+- split even 
+- cleared 
+  
+#### Summary
+- A "debt" and "group" will have a OTO relationship. A "debt" will always be a single item, and is added individually per group. An example of this is that if a group buys several rounds over the course of an evening, they are likely to have different totals.
+- Storing a debt will create a "user debt" for each user that was involved. This will likely be a tickbox based form when the "created by" user is adding the debt in the first place.
+- "total amount" is just what the overall debt is.
+- "split even" will be an additional checkbox that will just split whatever the debt is between all involved users.
+- "cleared" will be a box checkable by the "created by" user, allowing them to confirm everyone has paid their share. Can be used to show/hide old debts etc.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### User Debt
+#### Properties
+- id
+- user id (OTM between "user" and "user debt")
+- group user id (OTM between "group user" and "user debt")
+- debt id (OTM between "debts" and "user debt")
+- original amount
+- paid amount
+- cleared 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### Summary
+- The idea is that a "user debt" will be created for each "user" that is involved in a given "debt". Including the "user" and "debt" ids as relationships is so a "users" overall owe/oweds amounts can be totalled. Initial idea is to provide the most relevant information to the user when they log in, that being how much money they owe/are owed.
+- "original amount" is set by whoever created the "debt" that has spawned the "user debt".
+- "paid amount" is updated by the "user".
+- "cleared" works in the same way it does for a "debt", just on an individual level. The creator of the "debt" will be able to check off individual users.
 
-## Laravel Sponsors
+## Models
+- Models to be created with relationships relative to db relationships. Also include belongsTo relationships for OTM db relationships.
+- Factories to be created with the aim to create a seeder that can simulate data from ~100 users.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Controllers
+**look into best practices to do this with livewire**
 
-### Premium Partners
+## Process (to be fleshed out fully)
+- [ ] Install laravel breeze for basic users, auth etc.
+- [ ] Install livewire as that will be the frontend.
+- [ ] Write migrations with correct relationships.
+- [ ] Build a seeder, leveraging factories. This will be done in two parts.
+    - [ ] User & group related. 
+    - [ ] Debt related.
+- [ ] Write tests for operations (detailed below)
+- [ ] Build the frontend (need to properly scope this out).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Operations (incomplete)
+#### User
+- sign up
+- log in
+- reset password (these three are possibly OOTB)
 
-## Contributing
+#### Group
+- create group
+- join group
+- remove someone from group they own
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Debt
+- add a debt for all group members
+- add a debt for some group members
+- clear an entire debt
+- clear a single user from a debt
+- delete a debt
+- split a debt evenly
+- split a debt with custom amounts
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Unsure where these go, might need to rethink test structure
+- pay some of a debt
+- pay all of a debt
+  
