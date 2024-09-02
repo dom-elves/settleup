@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 	        $table->integer('user_id');
 	        $table->integer('group_id');
-	        $table->float('value'); // what a group user owes/is owed, can be used later to calc for overall user
+	        $table->float('value')->nullable(); // what a group user owes/is owed, can be used later to calc for overall user
             $table->timestamps();
         });
     }

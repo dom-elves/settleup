@@ -19,7 +19,6 @@ class GroupFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'kitty' => 99.99,
         ];
     }
 }
