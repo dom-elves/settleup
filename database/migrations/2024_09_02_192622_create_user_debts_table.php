@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('debts', function (Blueprint $table) {
+        Schema::create('user_debts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name');
-            $table->float('total_amount', 2);
-            $table->integer('user_id'); // maybe revert this to also be foreign key but for now, keeop it simple
-            $table->boolean('split_even');
+            $table->foreign('user_id')->constrained();
+            $table->foreign('group_id')->constrained();
+            $table->foreign('debt_id')->constrained();
+            $table->float('original_amount', 2);
+            $table->float('paid_amount', 2);
             $table->boolean('cleared');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('debts');
+        Schema::dropIfExists('user_debts');
     }
 };
