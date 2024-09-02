@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Elves',
             'email' => 'dom_elves@hotmail.co.uk',
             'password' => 'password',
+            'total_value' => 00.00,
         ]);
 
         for ($i = 0; $i < 100; $i++) {
