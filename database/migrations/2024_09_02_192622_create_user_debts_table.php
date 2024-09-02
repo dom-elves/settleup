@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('user_debts', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->constrained();
-            $table->foreign('group_id')->constrained();
-            $table->foreign('debt_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('group_id')->constrained();
+            $table->foreignId('debt_id')->constrained();
             $table->float('original_amount', 2);
             $table->float('paid_amount', 2);
             $table->boolean('cleared');
