@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('group_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
             $table->float('total_amount', 2);
-            $table->integer('user_id'); // maybe revert this to also be foreign key but for now, keeop it simple
+            $table->integer('group_user_id'); // maybe revert this to also be foreign key but for now, keep it simple
             $table->boolean('split_even');
             $table->boolean('cleared');
             $table->timestamps();

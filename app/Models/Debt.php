@@ -18,12 +18,8 @@ class Debt extends Model
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'name', 'amount', 'involved_users', 'paid_by', 'created_by_user_id'];
+    protected $fillable = ['group_id', 'name', 'total_amount', 'user_id', 'split_even'];
 
-    // paid_by defaults as an empty array in a string since it's json
-    protected $attributes = [
-        'paid_by' => '[]',
-    ];
 
     public function group(): BelongsTo
     {

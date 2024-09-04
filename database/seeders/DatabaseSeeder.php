@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->createUsers();
 	    $this->createGroups();
 		$this->createGroupUsers();
+        $this->createDebts();
     }
 
     public function createUsers()
@@ -91,41 +92,29 @@ class DatabaseSeeder extends Seeder
         }
     }
 
-    public function createDebt($user_ids, $group)
+    public function createDebts()
     {
         $faker = Faker::create();
 
-        $user_ids_array = $user_ids->toArray();
-
-        // generate a random decimal, not perfect
-        $decimal = round(100 / random_int(100,1000), 2);
-
-        // pick some random users to be involved in the debt
-        // again, array in a separate step to be used later
-        $involved_users = $user_ids->take(random_int(2, count($user_ids_array)));
-        $involved_users_array = $involved_users->toArray();
-
-        // don't need to make an array separately since it's the end of the chain
-        $paid_users_array = $involved_users->take(random_int(1, count($involved_users_array)))->toArray();
+        $group_ids = Group::pluck('id')->toArray();
         
-        // pick a random user to be the one that created the debt
-        $created_by_user_id = $paid_users_array[array_rand($paid_users_array)];
-        
-        Debt::factory()->create([
-            'group_id' => $group->id,
-            // add the decimal to a random integer to make it look like money
-            'amount' => random_int(1, 999) + $decimal,
-            // add the randomly selected involved usersn then paid users from that
-            'involved_users' => json_encode($involved_users_array),
-            'paid_by' => json_encode($paid_users_array),
-            'created_by_user_id' => $created_by_user_id,
-            'name' => $faker->word(),
-        ]);
-
-        dump('added debt for group ' . $group->id
-         . ' created by user ' . $created_by_user_id 
-         . ' paid by users ' . json_encode($paid_users_array) 
-         . ' involved users: ' . json_encode($involved_users_array)
-        );
+        foreach ($group_ids as $group_id) {
+    
+            $total_amount = random_int(1,999) + round(100/random_int(100,1000), 2);
+            $group_user = GroupUser::where('group_id', $group_id)->first();
+            $user = User::findOrFail($group_user->user_id);
+            Debt::create([
+                'group_id' => $group_id,
+                'name' => $faker->word(),
+                'total_amount' => $total_amount,
+                'group_user_id' => $group_user->user_id,
+                'split_even' => $faker->boolean(),
+                // todo: update this to eventually have some cleared debts
+                'cleared' => 0,
+            ]);
+            
+            dump("Debt added for group ${group_id} for ${total_amount} by " . $user->first_name . " " . $user->last_name);
+        } 
     }
 }
+ 
