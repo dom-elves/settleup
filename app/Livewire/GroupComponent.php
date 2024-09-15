@@ -13,7 +13,6 @@ class GroupComponent extends Component
 
     public function render()
     {
-        dump(User::first());
         return view('livewire.groups.group');
     }
 }
