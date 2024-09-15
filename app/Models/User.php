@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Group;
+use App\Models\GroupUser;
 
 class User extends Authenticatable
 {
@@ -48,20 +50,14 @@ class User extends Authenticatable
         ];
     }
 
-    // public function created_debts(): HasMany
-    // {
-    //     $created_debts = $this->hasMany(Debt::class);
-    //     $created_debts->setQuery(Debt::where('created_by_user_id', $this->id)->getQuery(), 'created_by_user_id');
-
-    //     return $created_debts;
-    // }
-
-    public function groups(): BelongsToMany
+    public function group_user(): HasOne
     {
-        $groups = $this->belongsToMany(Group::class);
-        // dd(Group::whereJsonContains('user_ids', 1)->get());
-        $groups->setQuery(Group::whereJsonContains('user_ids', $this->id)->getQuery());
-        
-        return $groups;
+        return $this->hasOne(GroupUser::class);
+    }
+
+    public function getFullName(): string
+    {
+        return $this->first_name . " " . $this->last_name;
     }
 }
+

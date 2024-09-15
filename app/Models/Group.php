@@ -6,19 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
+use App\Models\GroupUser;
 use App\Models\Debt;
 
 class Group extends Model
 {
     use HasFactory;
 
-    public function users(): HasMany
-    {
-        // there must be a better way of doing this
-        $users = $this->hasMany(User::class);
-        $users->setQuery(User::whereIn('id', json_decode($this->user_ids))->getQuery());
+    //public function users(): HasMany
+    //{
+  //      return $this->hasMany(User::class);
+//    }
 
-        return $users;
+    public function group_users(): HasMany
+    {
+        return $this->hasMany(GroupUser::class);
     }
 
     public function debts(): HasMany
